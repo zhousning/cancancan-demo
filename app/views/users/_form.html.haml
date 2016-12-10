@@ -1,0 +1,20 @@
+= form_for @user do |f|
+  - if @user.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
+      %ul
+        - @user.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :role
+    - for role in User::ROLES
+      = check_box_tag "user[roles][#{role}]", role, @user.roles.include?(role), {:name => "user[roles][]"}
+      = label_tag "user_roles_#{role}", role.to_s.humanize
+      %br/
+    = hidden_field_tag "user[roles][]", ""
+  .actions
+    = f.submit 'Save'

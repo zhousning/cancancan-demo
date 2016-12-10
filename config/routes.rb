@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :forums
+  resources :products
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -6,6 +8,7 @@ Rails.application.routes.draw do
   devise_scope :user do
     # get 'login_validate', to: 'users/sessions#login_validate'
   end
+  resources :users, only: [:new, :index, :edit, :show, :update]
 
   # You can have the root of your site routed with "root"
   root 'home#index'

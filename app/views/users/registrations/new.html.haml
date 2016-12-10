@@ -22,8 +22,12 @@
     = f.password_field :password_confirmation, autocomplete: "off"
   .field
     = f.label :role
-    %br/
-    = f.collection_select(:role, User::ROLES, :to_s, lambda{|i| i.to_s.humanize})
+    - for role in User::ROLES
+      = check_box_tag "user[roles][#{role}]", role, @user.roles.include?(role), {:name => "user[roles][]"}
+      = label_tag "user_roles_#{role}", role.to_s.humanize
+      %br/
+    = hidden_field_tag "user[roles][]", ""
+
   .actions
     = f.submit "Sign up"
 = render "users/shared/links"
