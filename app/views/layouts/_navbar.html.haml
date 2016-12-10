@@ -23,7 +23,7 @@
           = link_to "登录", new_user_session_path
       - else
         %li
-          = link_to current_user.email, nil
+          = link_to current_user.name, nil
         %li
           %a{:href=>destroy_user_session_path, "data-method"=>"delete"} 注销
     -#

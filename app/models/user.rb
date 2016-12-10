@@ -20,4 +20,8 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  ROLES = %i[admin moderator author banned]
+
+  validates :name, :presence => true
 end

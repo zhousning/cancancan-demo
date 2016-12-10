@@ -2,9 +2,13 @@
 = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
   = devise_error_messages!
   .field
+    = f.label :name
+    %br/
+    = f.text_field :name, autofocus: true
+  .field
     = f.label :email
     %br/
-    = f.email_field :email, autofocus: true
+    = f.email_field :email, autofocus: false 
   .field
     = f.label :password
     - if @minimum_password_length
@@ -16,6 +20,10 @@
     = f.label :password_confirmation
     %br/
     = f.password_field :password_confirmation, autocomplete: "off"
+  .field
+    = f.label :role
+    %br/
+    = f.collection_select(:role, User::ROLES, :to_s, lambda{|i| i.to_s.humanize})
   .actions
     = f.submit "Sign up"
 = render "users/shared/links"
