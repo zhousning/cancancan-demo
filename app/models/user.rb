@@ -20,6 +20,7 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  belongs_to :role
 
   ROLES = %i[manager admin superadmin]
 
@@ -38,5 +39,9 @@ class User < ActiveRecord::Base
 
   def has_role?(role)
     roles.include?(role)
+  end
+
+  def super_admin?
+    self.role.name == "Super Admin"
   end
 end

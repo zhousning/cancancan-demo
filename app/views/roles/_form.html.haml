@@ -1,0 +1,19 @@
+= form_for @role do |f|
+  - if @role.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@role.errors.count, "error")} prohibited this role from being saved:"
+      %ul
+        - @role.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  %table
+    - @permissions.each do |permission|
+      %tr
+        %td= permission.subject_class
+        %td= permission.action
+        %td= check_box_tag 'permissions[]', permission.id, @role_permissions.include?(permission.id), {array: true, class: "check_box"} 
+  .actions
+    = f.submit 'Save'
